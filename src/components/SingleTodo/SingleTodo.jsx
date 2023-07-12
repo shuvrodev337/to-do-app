@@ -1,7 +1,8 @@
 
-const SingleTodo = ({todo}) => {
-
+const SingleTodo = ({todoInfo}) => {
+const {todo} = todoInfo 
 // const handleDelete  = 
+// console.log(todoInfo);
     return (
         <div className="grid grid-cols-2 gap-4">
             <p className="text-center mx-auto w-1/2 bg-gray-400 rounded-xl">{todo}</p>

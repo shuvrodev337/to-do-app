@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-// import useAuth from "../../hooks/useAuth";
-// import SectionTitle from "../../components/sectionTitle";
+
 import axios from "axios";
 import Swal from "sweetalert2";
-// import SocialLogins from "../../components/SocialLogins";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Providers/AuthProvider";
 import SocialLogins from "../SocialLogins/SocialLogins";

@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SingleTodo from "../SingleTodo/SingleTodo";
 import { AuthContext } from "../../Providers/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const TodoList = () => {
 const {user,
@@ -9,6 +10,18 @@ const {user,
     } = useContext(AuthContext)
 
 const [todos, setTodos] = useState([])
+
+
+useEffect(()=>{
+
+    axios.get(`http://localhost:3000/todos?email=${user?.email}`)
+    .then(res=>{
+        // console.log(res.data);
+        setTodos(res.data)
+    })
+},[user,todos])
+
+
     const handleAddTodo = (event)=>{
 
         event.preventDefault()
@@ -22,8 +35,28 @@ const [todos, setTodos] = useState([])
             todo: newTodo,
             email: user.email,
           }; 
-        //   axios.post("http://localhost:3000/todos",savedTodo)
+          axios.post("http://localhost:3000/todos",savedTodo)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+            //   reset();
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Added todo",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            
+            }
+          })
+          .catch((error) => {
+            console.log(error.message);
+            
+          });
     }
+    // console.log(todos);
+
         return (
         <div>
             <div className="text-center">
@@ -35,7 +68,7 @@ const [todos, setTodos] = useState([])
             <h1 className="text-3xl mx-auto my-6 text-center">This is todo list</h1>
             <div className="space-y-4">
                 {
-                    todos.map((todo, i)=><SingleTodo todo={todo} key={i}></SingleTodo>)
+                    todos.map((todoInfo)=><SingleTodo todoInfo={todoInfo} key={todoInfo._id}></SingleTodo>)
                 }
             </div>
         </div>
