@@ -21,7 +21,7 @@ const SocialLogins = () => {
                 const loggedInUser = result.user;
                 // console.log(loggedInUser);
                 const savedUser = { name: loggedInUser.displayName, email: loggedInUser.email, photo: loggedInUser.photoURL}
-                axios.post('http://localhost:3000/users',savedUser)
+                axios.post('https://todo-app-server-three.vercel.app/users',savedUser)
                 .then(res=>{
                     // console.log(res.data);
                     Swal.fire({

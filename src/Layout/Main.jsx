@@ -4,11 +4,11 @@ import { Outlet } from 'react-router-dom';
 
 const Main = () => {
     return (
-        <>
+        <div className='space-y-12'>
         <Navbar></Navbar>
         <Outlet></Outlet>
         
-        </>
+        </div>
     );
 };
 

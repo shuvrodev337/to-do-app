@@ -1,18 +1,25 @@
+import { FaTrash } from "react-icons/fa";
 
-const SingleTodo = ({todoInfo}) => {
-const {todo} = todoInfo 
-// const handleDelete  = 
-// console.log(todoInfo);
-    return (
-        <div className="grid grid-cols-2 gap-4">
-            <p className="text-center mx-auto w-1/2 bg-gray-400 rounded-xl">{todo}</p>
-            <div className="flex gap-2">
-            <button  className="btn btn-error btn-sm">Delete</button>
-            <button className="btn btn-success btn-sm">Complete</button>
-            </div>
-            
-        </div>
-    );
+
+const SingleTodo = ({ todoInfo,handleDeleteTodo ,index}) => {
+  const { todo, _id } = todoInfo;
+  
+  // console.log(todoInfo);
+
+  return (
+    
+      <div className="flex items-center  gap-3 ">
+        <p className=" p-4 bg-slate-100 text-sky-500  text-xl font-medium rounded-full">{index+1}</p>
+        <p className="px-6 py-2 w-44 md:w-72 bg-slate-100 text-gray-500  text-xl font-medium rounded">{todo}</p>
+        <button
+          onClick={() => handleDeleteTodo(_id)}
+          className="btn btn-error btn-sm "
+        >
+         <FaTrash></FaTrash>
+        </button>
+      </div>
+      
+  );
 };
 
 export default SingleTodo;

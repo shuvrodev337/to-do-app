@@ -61,7 +61,7 @@ const Signup = () => {
                 photo: imgURL,
               };
               axios
-                .post("http://localhost:3000/users", savedUser)
+                .post("https://todo-app-server-three.vercel.app/users", savedUser)
                 .then((res) => {
                   console.log(res.data);
                   if (res.data.insertedId) {
@@ -159,7 +159,7 @@ const Signup = () => {
                   {...register("password", {
                     required: true,
                     minLength: 6,
-                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/,
+                    
                   })}
                 />
                 {errors.password?.type === "required" && (
@@ -168,11 +168,7 @@ const Signup = () => {
                 {errors.password?.type === "minLength" && (
                   <p className="text-red-800 text-sm">Password Too short</p>
                 )}
-                {errors.password?.type === "pattern" && (
-                  <p className="text-red-800 text-sm">
-                    Password must have a capital letter and a special character
-                  </p>
-                )}
+                
               </div>
               <div className="form-control">
                 <label className="label">
@@ -214,33 +210,4 @@ const Signup = () => {
 
 export default Signup;
 
-// signup.then er { er vitor}
 
-// updateUserProfile(user.name, user.photo)
-//             .then(() => {
-//               //  TODO : check that defining role here is necessary or not
-//               const savedUser = { name: user.name, email: user.email, photo: user.photo, role: 'student'}
-
-//               axios.post('https://samurai-summer-camp-server.vercel.app/users',savedUser)
-//               .then(res=>{
-//                 console.log(res.data);
-//                 if (res.data.insertedId) {
-//                   reset();
-//                   Swal.fire({
-//                       position: 'center',
-//                       icon: 'success',
-//                       title: 'Sign Up Successful! PLease Login Now',
-//                       showConfirmButton: false,
-//                       timer: 2000
-//                   });
-
-//                   //  TODO : uncomment logout section
-//                   // logOut().then(() => {
-//                   //   navigate("/login");
-//                   // });
-
-//                 }
-
-//               })
-
-//             })

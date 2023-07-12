@@ -14,12 +14,13 @@ const [todos, setTodos] = useState([])
 
 useEffect(()=>{
 
-    axios.get(`http://localhost:3000/todos?email=${user?.email}`)
+    axios.get(`https://todo-app-server-three.vercel.app/todos?email=${user?.email}`)
     .then(res=>{
         // console.log(res.data);
         setTodos(res.data)
     })
 },[user,todos])
+
 
 
     const handleAddTodo = (event)=>{
@@ -35,11 +36,11 @@ useEffect(()=>{
             todo: newTodo,
             email: user.email,
           }; 
-          axios.post("http://localhost:3000/todos",savedTodo)
+          axios.post("https://todo-app-server-three.vercel.app/todos",savedTodo)
           .then((res) => {
             console.log(res.data);
             if (res.data.insertedId) {
-            //   reset();
+              event.target.reset();
               Swal.fire({
                 position: "center",
                 icon: "success",
@@ -55,20 +56,36 @@ useEffect(()=>{
             
           });
     }
-    // console.log(todos);
-
+    // console.log(todos); https://todo-app-server-three.vercel.app/
+    const handleDeleteTodo = (id) => {
+        axios.delete(`https://todo-app-server-three.vercel.app/todos/${id}`)
+        .then((res) => {
+          if (res.data.deletedCount > 0) {
+            //   refetch()
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `todo deleted from list !!`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            const updatedTodoList = todos.filter(todo=>todo._id !== id)
+            setTodos(updatedTodoList)
+          }
+        });
+      };
         return (
         <div>
-            <div className="text-center">
-            <form onSubmit={handleAddTodo} className="space-x-2">
-            <input type="text" placeholder="Type here" name="newTodo" className="input input-bordered input-accent w-full max-w-xs" />
-            <input type="submit" className="btn btn-primary" value="Add" />
+            {/* <div > */}
+            <form onSubmit={handleAddTodo} className="text-center flex flex-col items-center md:flex-row gap-4 justify-center" >
+            <input type="text" placeholder="Add Your New Todo" name="newTodo" className="input input-bordered input-info w-full max-w-xs" />
+            <input type="submit" className="btn btn-accent" value="Add" />
             </form>
-            </div>
-            <h1 className="text-3xl mx-auto my-6 text-center">This is todo list</h1>
-            <div className="space-y-4">
+            {/* </div> */}
+            <h1 className="text-3xl mx-auto my-6 text-center font-bold ">My todo list</h1>
+            <div className="flex flex-col items-center justify-center gap-4 my-6">
                 {
-                    todos.map((todoInfo)=><SingleTodo todoInfo={todoInfo} key={todoInfo._id}></SingleTodo>)
+                    todos.map((todoInfo,index)=><SingleTodo todoInfo={todoInfo} index={index} handleDeleteTodo={handleDeleteTodo} key={todoInfo._id}></SingleTodo>)
                 }
             </div>
         </div>
