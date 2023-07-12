@@ -1,24 +1,28 @@
 import { useContext, useState } from "react";
 import SingleTodo from "../SingleTodo/SingleTodo";
 import { AuthContext } from "../../Providers/AuthProvider";
+import axios from "axios";
 
 const TodoList = () => {
 const {user,
     loading,
-    createUser, 
-    signIn,
-    googleSignIn,
-    passwordReset, 
-    logOut} = useContext(AuthContext)
+    } = useContext(AuthContext)
 
 const [todos, setTodos] = useState([])
     const handleAddTodo = (event)=>{
 
         event.preventDefault()
         const newTodo =  event.target.newTodo.value
-        console.log(newTodo);
-        const updatedTodos = [...todos, newTodo]
-        setTodos(updatedTodos)
+        // console.log(newTodo);
+        // const updatedTodos = [...todos, newTodo]
+        // setTodos(updatedTodos)
+
+
+        const savedTodo = {
+            todo: newTodo,
+            email: user.email,
+          }; 
+        //   axios.post("http://localhost:3000/todos",savedTodo)
     }
         return (
         <div>

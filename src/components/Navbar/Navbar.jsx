@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const {user,
@@ -34,6 +35,10 @@ const Navbar = () => {
             This is nav bar
             <button onClick={handleGoogleSignIn} className="btn btn-danger button-outline">Sign in with Google</button>
             <button onClick={handleLogOut} className="btn btn-danger button-outline">Log Out</button>
+            <Link className="btn btn-danger btn-outline" to={'/sign-up'}>Sign Up</Link>
+            <Link className="btn btn-danger btn-outline" to={'/sign-up'}>Log in</Link>
+
+
         </div>
     );
 };
